@@ -4,19 +4,23 @@
   padding: 0;
 }
 
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
 body {
   font-family: 'Heebo', sans-serif;
   direction: rtl;
   background: linear-gradient(160deg, #fce8e6 0%, #e8f5ee 100%);
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
 }
 
 #root {
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
   display: flex;
   align-items: flex-start;
   justify-content: center;

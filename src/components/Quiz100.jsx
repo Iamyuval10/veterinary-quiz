@@ -257,6 +257,12 @@ export default function Quiz100() {
   const currentQuestion = activeQuestions[currentIndex] || null;
   const isLastQuestion = currentIndex === activeQuestions.length - 1;
 
+  // ── Scroll to top on every screen / question change ────────────────────
+  const screenRef = useRef(null);
+  useEffect(() => {
+    if (screenRef.current) screenRef.current.scrollTop = 0;
+  }, [screen, currentIndex]);
+
   // ── Timer ──────────────────────────────────────────────────────────────────
   const stopTimer = useCallback(() => {
     if (timerRef.current) {
@@ -424,7 +430,7 @@ export default function Quiz100() {
   if (screen === 'intro') {
     return (
       <div className="app-shell">
-        <div key="intro" className="screen screen--intro anim-fade-up">
+        <div key="intro" ref={screenRef} className="screen screen--intro anim-fade-up">
           <div className="intro__dog-wrap">
             <img src={dogIntroImg} alt="בוחן זיהומים" className="intro__dog-img" />
           </div>
@@ -476,7 +482,7 @@ export default function Quiz100() {
   if (screen === 'confidentiality') {
     return (
       <div className="app-shell">
-        <div key="confidentiality" className="screen screen--overlay anim-fade-scale">
+        <div key="confidentiality" ref={screenRef} className="screen screen--overlay anim-fade-scale">
           <div className="confidentiality__card">
             <div className="confidentiality__lock-wrap">
               <div className="confidentiality__lock-circle">
@@ -557,7 +563,7 @@ export default function Quiz100() {
 
     return (
       <div className="app-shell">
-        <div key={`quiz-${currentIndex}`} className="screen screen--quiz anim-slide-right">
+        <div key={`quiz-${currentIndex}`} ref={screenRef} className="screen screen--quiz anim-slide-right">
           {/* Header row: progress pill + attempt dots */}
           <div className="quiz__header">
             <div className="quiz__progress-pill">{progressLabel}</div>
@@ -662,7 +668,7 @@ export default function Quiz100() {
 
     return (
       <div className="app-shell">
-        <div key={`results-${attemptNumber}`} className="screen screen--results anim-fade-up">
+        <div key={`results-${attemptNumber}`} ref={screenRef} className="screen screen--results anim-fade-up">
           {/* Dog image */}
           <div className="results__dog-wrap">
             <img src={dogResultsImg} alt="כלב" className="results__dog-img" />
