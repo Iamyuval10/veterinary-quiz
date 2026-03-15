@@ -116,9 +116,9 @@
 }
 
 .intro__dog-img {
-  max-height: 155px;
+  max-height: 175px;
   width: auto;
-  max-width: 220px;
+  max-width: 250px;
   object-fit: contain;
   filter: drop-shadow(0 4px 12px rgba(192, 67, 90, 0.25));
 }
