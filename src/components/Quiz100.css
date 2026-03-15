@@ -107,6 +107,7 @@
 .screen--intro {
   justify-content: center;
   gap: 10px;
+  overflow: hidden;
 }
 
 .intro__dog-wrap {
@@ -116,9 +117,9 @@
 }
 
 .intro__dog-img {
-  max-height: 175px;
+  max-height: 190px;
   width: auto;
-  max-width: 250px;
+  max-width: 265px;
   object-fit: contain;
   filter: drop-shadow(0 4px 12px rgba(192, 67, 90, 0.25));
 }
@@ -266,12 +267,16 @@
   font-weight: 800;
   color: var(--text);
   margin: -4px 0 0;
+  text-align: center;
+  width: 100%;
 }
 
 .confidentiality__subtitle {
   font-size: 13px;
   color: var(--text-muted);
   margin-top: -8px;
+  text-align: center;
+  width: 100%;
 }
 
 .confidentiality__rules-card {
@@ -351,6 +356,8 @@
 /* ────────────────────────────────────────────────────────────────────────── */
 .screen--quiz {
   padding-top: 24px;
+  padding-bottom: 36px;
+  overflow-y: auto;
 }
 
 .quiz__header {

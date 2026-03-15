@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef, useCallback } from 'react';
 import './Quiz100.css';
 import dogIntroImg from '../assets/opening.png';
 import dogResultsImg from '../assets/result-message.png';
@@ -259,7 +259,7 @@ export default function Quiz100() {
 
   // ── Scroll to top on every screen / question change ────────────────────
   const screenRef = useRef(null);
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (screenRef.current) screenRef.current.scrollTop = 0;
   }, [screen, currentIndex]);
 
