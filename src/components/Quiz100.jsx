@@ -435,13 +435,6 @@ export default function Quiz100() {
             <img src={dogIntroImg} alt="בוחן זיהומים" className="intro__dog-img" />
           </div>
 
-          <div className="intro__info-card">
-            <div className="intro__info-title">בוחן 100</div>
-            <div className="intro__info-desc">
-              הבוחן ימשיך כל עוד יש טעויות – למשך 3 ניסיונות
-            </div>
-          </div>
-
           <div className="intro__stats">
             <div className="intro__stat">
               <span className="intro__stat-icon">💡</span>
@@ -460,15 +453,17 @@ export default function Quiz100() {
             </div>
           </div>
 
-          <div className="intro__serial-label">הזן פרטים:</div>
-          <input
-            className="intro__serial-input"
-            type="text"
-            placeholder="מספר סידורי..."
-            value={serialNumber}
-            onChange={(e) => setSerialNumber(e.target.value.replace(/\D/g, ''))}
-            dir="rtl"
-          />
+          <div className="intro__serial-group">
+            <div className="intro__serial-label">הזן פרטים:</div>
+            <input
+              className="intro__serial-input"
+              type="text"
+              placeholder="מספר סידורי..."
+              value={serialNumber}
+              onChange={(e) => setSerialNumber(e.target.value.replace(/\D/g, ''))}
+              dir="rtl"
+            />
+          </div>
 
           <button className="btn btn--green btn--full" onClick={startQuiz}>
             ← התחל בוחן
