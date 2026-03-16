@@ -106,58 +106,26 @@
 /* ────────────────────────────────────────────────────────────────────────── */
 .screen--intro {
   justify-content: flex-start;
-  gap: 14px;
-  padding-top: 20vh;
-  padding-bottom: 24px;
+  gap: 16px;
+  padding-top: 18vh;
+  padding-bottom: 28px;
   overflow-y: auto;
 }
 
+/* Dog + title image (opening.png contains both as one combined image) */
 .intro__dog-wrap {
   display: flex;
   justify-content: center;
 }
 
 .intro__dog-img {
-  max-height: 250px;
-  width: auto;
-  max-width: 250px;
+  width: 65%;
+  max-width: 245px;
+  height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 4px 12px rgba(192, 67, 90, 0.25));
 }
 
-.intro__title-pill {
-  align-self: center;
-  background: var(--pink-med);
-  color: #fff;
-  font-weight: 700;
-  font-size: 22px;
-  padding: 10px 32px;
-  border-radius: 50px;
-  text-align: center;
-  box-shadow: 0 4px 14px rgba(192, 67, 90, 0.3);
-}
-
-.intro__info-card {
-  background: var(--card-bg);
-  border-radius: var(--radius);
-  padding: 12px 16px;
-  box-shadow: var(--shadow);
-  text-align: right;
-}
-
-.intro__info-title {
-  font-weight: 700;
-  font-size: 15px;
-  color: var(--text);
-  margin-bottom: 6px;
-}
-
-.intro__info-desc {
-  font-size: 13px;
-  color: var(--text-muted);
-  line-height: 1.6;
-}
-
+/* Stats row — 3 equal cards */
 .intro__stats {
   display: flex;
   gap: 10px;
@@ -167,35 +135,38 @@
   flex: 1;
   background: var(--card-bg);
   border-radius: var(--radius);
-  padding: 8px 6px;
+  padding: 12px 8px 10px;
   text-align: center;
   box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1px;
+  gap: 3px;
 }
 
 .intro__stat-icon {
-  font-size: 20px;
+  font-size: 22px;
   color: var(--text-muted);
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 2px;
 }
 
 .intro__stat-num {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 800;
   color: var(--text);
+  line-height: 1;
 }
 
 .intro__stat-label {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-muted);
   font-weight: 500;
 }
 
+/* Serial number group */
 .intro__serial-group {
   display: flex;
   flex-direction: column;
@@ -214,8 +185,8 @@
   width: 100%;
   border: 1.5px solid var(--border);
   border-radius: var(--radius-sm);
-  padding: 10px 16px;
-  font-size: 14px;
+  padding: 13px 16px;
+  font-size: 15px;
   font-family: 'Heebo', sans-serif;
   outline: none;
   background: #fff;
