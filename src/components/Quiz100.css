@@ -107,9 +107,9 @@
 .screen--intro {
   justify-content: flex-start;
   gap: 12px;
-  padding-top: 22px;
+  padding-top: 32vh;
   padding-bottom: 24px;
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 .intro__dog-wrap {
@@ -118,9 +118,9 @@
 }
 
 .intro__dog-img {
-  max-height: 230px;
+  max-height: 270px;
   width: auto;
-  max-width: 310px;
+  max-width: 360px;
   object-fit: contain;
   filter: drop-shadow(0 4px 12px rgba(192, 67, 90, 0.25));
 }
