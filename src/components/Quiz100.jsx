@@ -435,6 +435,8 @@ export default function Quiz100() {
             <img src={dogIntroImg} alt="בוחן זיהומים" className="intro__dog-img" />
           </div>
 
+          <div className="intro__title-pill">בוחן זיהומים</div>
+
           <div className="intro__stats">
             <div className="intro__stat">
               <span className="intro__stat-icon">💡</span>
