@@ -105,9 +105,9 @@
 /*  INTRO SCREEN                                                              */
 /* ────────────────────────────────────────────────────────────────────────── */
 .screen--intro {
-  justify-content: space-evenly;
-  gap: 0;
-  padding-top: 20px;
+  justify-content: flex-start;
+  gap: 12px;
+  padding-top: 22px;
   padding-bottom: 24px;
   overflow: hidden;
 }
@@ -118,9 +118,9 @@
 }
 
 .intro__dog-img {
-  max-height: 190px;
+  max-height: 230px;
   width: auto;
-  max-width: 265px;
+  max-width: 310px;
   object-fit: contain;
   filter: drop-shadow(0 4px 12px rgba(192, 67, 90, 0.25));
 }
@@ -130,7 +130,7 @@
   background: var(--pink-med);
   color: #fff;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 22px;
   padding: 10px 32px;
   border-radius: 50px;
   text-align: center;
@@ -167,13 +167,13 @@
   flex: 1;
   background: var(--card-bg);
   border-radius: var(--radius);
-  padding: 10px 8px;
+  padding: 8px 6px;
   text-align: center;
   box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
+  gap: 1px;
 }
 
 .intro__stat-icon {
@@ -214,7 +214,7 @@
   width: 100%;
   border: 1.5px solid var(--border);
   border-radius: var(--radius-sm);
-  padding: 13px 16px;
+  padding: 10px 16px;
   font-size: 14px;
   font-family: 'Heebo', sans-serif;
   outline: none;
