@@ -430,7 +430,7 @@ export default function Quiz100() {
   if (screen === 'intro') {
     return (
       <div className="app-shell">
-        <div key="intro" ref={screenRef} className="screen screen--intro anim-fade-up" style={{ paddingTop: '35vh' }}>
+        <div key="intro" ref={screenRef} className="screen screen--intro anim-fade-up" style={{ paddingTop: '17.5vh' }}>
           <div className="intro__dog-wrap">
             <img src={dogIntroImg} alt="בוחן זיהומים" className="intro__dog-img" />
           </div>
