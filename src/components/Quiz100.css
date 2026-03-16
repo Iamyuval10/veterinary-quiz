@@ -107,7 +107,7 @@
 .screen--intro {
   justify-content: flex-start;
   gap: 16px;
-  padding-top: 33vh;
+  padding-top: 35vh;
   padding-bottom: 28px;
   overflow-y: auto;
 }
