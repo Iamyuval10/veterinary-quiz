@@ -325,7 +325,8 @@
 /* ────────────────────────────────────────────────────────────────────────── */
 .screen--quiz {
   padding-top: 24px;
-  padding-bottom: 36px;
+  padding-bottom: 60px;
+  min-height: 110vh;
 }
 
 .quiz__header {
@@ -655,6 +656,7 @@
 .screen--results {
   padding-top: 0;
   gap: 16px;
+  padding-bottom: 60px;
 }
 
 .results__dog-wrap {
