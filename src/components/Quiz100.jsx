@@ -263,6 +263,10 @@ export default function Quiz100() {
     if (screenRef.current) screenRef.current.scrollTop = 0;
   };
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [screen]);
+
   // ── Timer ──────────────────────────────────────────────────────────────────
   const stopTimer = useCallback(() => {
     if (timerRef.current) {
