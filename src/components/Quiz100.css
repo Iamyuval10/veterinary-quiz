@@ -71,6 +71,13 @@
   --radius-sm:      10px;
 }
 
+/* ── Scroll container (single scrollable element in the app) ────────────── */
+.scroll-container {
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 /* ── App shell / centering ──────────────────────────────────────────────── */
 .app-shell {
   width: 100%;

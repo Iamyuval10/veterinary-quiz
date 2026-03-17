@@ -4,21 +4,11 @@
   padding: 0;
 }
 
-html {
-  min-height: 100%;
-}
-
 body {
   font-family: 'Heebo', sans-serif;
   direction: rtl;
-  background: linear-gradient(160deg, #fce8e6 0%, #e8f5ee 100%);
-  min-height: 100vh;
 }
 
 #root {
   width: 100%;
-  min-height: 100vh;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
 }
