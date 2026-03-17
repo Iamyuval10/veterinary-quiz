@@ -15,7 +15,6 @@ const QUESTIONS = [
       D: '36.0–37.0°C',
     },
     correct: 'B',
-    hint: 'טמפרטורת הגוף של כלב גבוהה מעט מזו של בני אדם.',
     explanation:
       'טמפרטורת הגוף התקינה של כלב היא 37.5–39.2°C. חום מעל 39.5°C נחשב לחום גבוה הדורש בדיקה וטרינרית.',
   },
@@ -29,7 +28,6 @@ const QUESTIONS = [
       D: 'חיסון לבורדטלה',
     },
     correct: 'B',
-    hint: 'החיסון הבסיסי מגן מפני מספר מחלות בו-זמנית — ראשי התיבות שלו כוללים Distemper ו-Parvovirus.',
     explanation:
       'חיסון DHPP (Distemper, Hepatitis, Parainfluenza, Parvovirus) הוא החיסון הבסיסי הניתן לגורים בגיל 8 שבועות.',
   },
@@ -43,7 +41,6 @@ const QUESTIONS = [
       D: 'Babesia canis',
     },
     correct: 'C',
-    hint: 'הטפיל מועבר על ידי יתושים, ושמו זהה לשם המחלה עצמה.',
     explanation:
       'Leishmania infantum הוא הטפיל החד-תאי האחראי למחלת הלישמניה בכלבים, המועבר על ידי יתוש הפלבוטומוס.',
   },
@@ -57,7 +54,6 @@ const QUESTIONS = [
       D: 'תסמיני עצבים ופרכוסים',
     },
     correct: 'B',
-    hint: 'פניאומוניה פוגעת בריאות — חשוב על תסמינים הקשורים לנשימה.',
     explanation:
       'פניאומוניה בכלב מאופיינת בשיעול, עלייה בקצב הנשימה (טכיפנאה), קשיי נשימה וחום.',
   },
@@ -71,7 +67,6 @@ const QUESTIONS = [
       D: 'גלוקוז תוך-ורידי',
     },
     correct: 'A',
-    hint: 'הרעלת אורגנופוספטים גורמת לעודף אצטילכולין — הטיפול צריך לחסום פעילות זו.',
     explanation:
       'הטיפול בהרעלת אורגנופוספטים כולל אטרופין (לחסום אצטילכולין) ופרלידוקסים (להחיות את האצטילכולינאסטראז).',
   },
@@ -85,7 +80,6 @@ const QUESTIONS = [
       D: 'מעכב אנזים ה-ACE',
     },
     correct: 'B',
-    hint: 'איברמקטין אינו אנטיביוטיקה — הוא פועל על מערכת העצבים של טפילים, לא של חיידקים.',
     explanation:
       'איברמקטין פועל על ידי הגברת חדירות ממברנת העצב לכלוריד בחסרי חוליות, מה שגורם לשיתוק ומוות של הטפיל.',
   },
@@ -99,7 +93,6 @@ const QUESTIONS = [
       D: 'Anaplasma platys',
     },
     correct: 'B',
-    hint: 'המחלה נגרמת על ידי טפיל שפוגע ישירות בתוך כדוריות הדם האדומות.',
     explanation:
       'Babesia canis היא טפיל תוך-כדורית דם הגורם להרס כדוריות דם אדומות ואנמיה המוליטית חמורה.',
   },
@@ -113,7 +106,6 @@ const QUESTIONS = [
       D: 'זיהום חיידקי פעיל',
     },
     correct: 'B',
-    hint: 'BUN הוא תוצר פירוק חלבון — האיבר שאמור להפריש אותו הוא גם האיבר המסנן.',
     explanation:
       'BUN (Blood Urea Nitrogen) הוא תוצר פירוק חלבון המופרש על ידי הכליות. ערך גבוה מעיד על ירידה בסינון הגלומרולרי ואי-ספיקת כליות.',
   },
@@ -127,7 +119,6 @@ const QUESTIONS = [
       D: '4–5 שבועות',
     },
     correct: 'B',
-    hint: 'גמילה מוקדמת מדי פוגעת בהתפתחות — הגור צריך לפחות חודשיים עם האם.',
     explanation:
       'גיל הגמילה המומלץ הוא 6–8 שבועות. גמילה מוקדמת מדי עלולה לגרום לבעיות התנהגות ועיכוב בפיתוח מערכת החיסון.',
   },
@@ -141,7 +132,6 @@ const QUESTIONS = [
       D: 'Canine Adenovirus',
     },
     correct: 'B',
-    hint: 'שם הוירוס זהה לשם המחלה — חפש את האפשרות שמכילה את המילה "Parvovirus".',
     explanation:
       'פרבוווירוס בכלבים נגרם על ידי Canine Parvovirus type 2 (CPV-2), וירוס הפוגע במעיים ובמח העצם ומסכן חיים ללא טיפול.',
   },
@@ -156,9 +146,7 @@ const shuffle = (arr) => {
   return a;
 };
 
-const MAX_ATTEMPTS = 3;
 const QUESTION_TIME = 60;
-const MAX_HINTS = 4;
 
 // ─── Icons (inline SVG) ───────────────────────────────────────────────────────
 const IconLock = () => (
@@ -189,44 +177,6 @@ const IconX = () => (
   </svg>
 );
 
-const IconLightbulb = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-    <path d="M9 21h6M12 3a6 6 0 0 1 4.243 10.243C15.12 14.364 15 15.172 15 16H9c0-.828-.12-1.636-1.243-2.757A6 6 0 0 1 12 3z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
-const IconDog = () => (
-  <svg viewBox="0 0 120 130" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%' }}>
-    {/* Body */}
-    <ellipse cx="60" cy="90" rx="30" ry="28" fill="#B8835A" />
-    {/* Head */}
-    <ellipse cx="60" cy="52" rx="26" ry="24" fill="#C4956A" />
-    {/* Ears */}
-    <ellipse cx="38" cy="38" rx="11" ry="16" rx="10" ry="15" fill="#8B5E3C" transform="rotate(-15 38 38)" />
-    <ellipse cx="82" cy="38" rx="10" ry="15" fill="#8B5E3C" transform="rotate(15 82 38)" />
-    {/* Snout */}
-    <ellipse cx="60" cy="62" rx="13" ry="9" fill="#D4A574" />
-    {/* Nose */}
-    <ellipse cx="60" cy="57" rx="5" ry="3.5" fill="#3A2010" />
-    {/* Eyes */}
-    <circle cx="50" cy="48" r="4" fill="white" />
-    <circle cx="70" cy="48" r="4" fill="white" />
-    <circle cx="51" cy="48" r="2.5" fill="#3A2010" />
-    <circle cx="71" cy="48" r="2.5" fill="#3A2010" />
-    <circle cx="52" cy="47" r="1" fill="white" />
-    <circle cx="72" cy="47" r="1" fill="white" />
-    {/* Mouth */}
-    <path d="M54 66 Q60 71 66 66" stroke="#3A2010" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-    {/* Tail */}
-    <path d="M88 85 Q105 70 100 58" stroke="#B8835A" strokeWidth="8" strokeLinecap="round" fill="none" />
-    {/* Legs */}
-    <rect x="42" y="108" width="10" height="18" rx="5" fill="#B8835A" />
-    <rect x="58" y="108" width="10" height="18" rx="5" fill="#B8835A" />
-    <rect x="34" y="105" width="10" height="16" rx="5" fill="#A07040" />
-    <rect x="76" y="105" width="10" height="16" rx="5" fill="#A07040" />
-  </svg>
-);
-
 // ─── Main Component ───────────────────────────────────────────────────────────
 export default function Quiz100() {
   // Screen state
@@ -234,25 +184,20 @@ export default function Quiz100() {
   const [serialNumber, setSerialNumber] = useState('');
   const [agreedConfidentiality, setAgreedConfidentiality] = useState(false);
 
-  // Attempt / quiz progress
-  const [attemptNumber, setAttemptNumber] = useState(1);
+  // Quiz progress
+  const [hasRetried, setHasRetried] = useState(false);
   const [activeQuestions, setActiveQuestions] = useState([...QUESTIONS]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [answerState, setAnswerState] = useState(null); // null | 'correct' | 'wrong' | 'timeout'
 
-  // Answers across all attempts
+  // Answers
   const [currentAttemptAnswers, setCurrentAttemptAnswers] = useState({});
-  const [allAnswers, setAllAnswers] = useState({}); // accumulated best results
-  const [prevWrongAnswers, setPrevWrongAnswers] = useState({}); // { questionId: selectedKey } to show red border
+  const [allAnswers, setAllAnswers] = useState({});
 
   // Timer
   const [timeLeft, setTimeLeft] = useState(QUESTION_TIME);
   const timerRef = useRef(null);
-
-  // Hints
-  const [hintsLeft, setHintsLeft] = useState(MAX_HINTS);
-  const [showHint, setShowHint] = useState(false);
 
   const currentQuestion = activeQuestions[currentIndex] || null;
   const isLastQuestion = currentIndex === activeQuestions.length - 1;
@@ -275,14 +220,12 @@ export default function Quiz100() {
     }
   }, []);
 
-  // Start/reset timer whenever question changes (and we're on quiz screen, unanswered)
   useEffect(() => {
     if (screen !== 'quiz') return;
     setTimeLeft(QUESTION_TIME);
     return stopTimer;
   }, [screen, currentIndex, stopTimer]);
 
-  // Tick
   useEffect(() => {
     if (screen !== 'quiz' || answerState !== null) {
       stopTimer();
@@ -294,7 +237,6 @@ export default function Quiz100() {
     return stopTimer;
   }, [screen, currentIndex, answerState, stopTimer]);
 
-  // Timeout handler
   useEffect(() => {
     if (timeLeft === 0 && screen === 'quiz' && answerState === null && currentQuestion) {
       stopTimer();
@@ -329,7 +271,6 @@ export default function Quiz100() {
       setCurrentIndex((i) => i + 1);
       setSelectedOption(null);
       setAnswerState(null);
-      setShowHint(false);
     }
   };
 
@@ -346,32 +287,16 @@ export default function Quiz100() {
     const failedQIds = Object.entries(allAnswers)
       .filter(([, a]) => !a.correct)
       .map(([id]) => parseInt(id, 10));
-
     const failedQs = QUESTIONS.filter((q) => failedQIds.includes(q.id));
 
-    const wrongMap = {};
-    failedQIds.forEach((id) => {
-      const a = allAnswers[id];
-      if (a && !a.timedOut && a.selected) wrongMap[id] = a.selected;
-    });
-
-    setPrevWrongAnswers(wrongMap);
-    setAttemptNumber((n) => n + 1);
+    setHasRetried(true);
     setActiveQuestions(shuffle(failedQs));
     setCurrentIndex(0);
     setCurrentAttemptAnswers({});
     setSelectedOption(null);
     setAnswerState(null);
-    setShowHint(false);
     setTimeLeft(QUESTION_TIME);
-    setHintsLeft(MAX_HINTS);
     setScreen('quiz');
-  };
-
-  const handleUseHint = () => {
-    if (hintsLeft <= 0 || answerState !== null || !currentQuestion || showHint) return;
-    setShowHint(true);
-    setHintsLeft((h) => h - 1);
   };
 
   const startQuiz = () => {
@@ -380,12 +305,9 @@ export default function Quiz100() {
     setCurrentIndex(0);
     setCurrentAttemptAnswers({});
     setAllAnswers({});
-    setPrevWrongAnswers({});
     setSelectedOption(null);
     setAnswerState(null);
-    setAttemptNumber(1);
-    setShowHint(false);
-    setHintsLeft(MAX_HINTS);
+    setHasRetried(false);
     setScreen('confidentiality');
   };
 
@@ -398,15 +320,9 @@ export default function Quiz100() {
   const getOptionClass = (key) => {
     const isSelected = selectedOption === key;
     const isCorrect = currentQuestion && key === currentQuestion.correct;
-    const isPrevWrong = prevWrongAnswers[currentQuestion?.id] === key;
 
-    if (answerState === null) {
-      // Unanswered state — highlight prev wrong answer with red border
-      if (isPrevWrong) return 'option option--prev-wrong';
-      return 'option';
-    }
+    if (answerState === null) return 'option';
 
-    // After answer / timeout
     if (answerState === 'timeout') {
       if (isCorrect) return 'option option--correct-reveal';
       return 'option option--dimmed';
@@ -442,11 +358,6 @@ export default function Quiz100() {
           </div>
 
           <div className="intro__stats">
-            <div className="intro__stat">
-              <span className="intro__stat-icon">💡</span>
-              <div className="intro__stat-num">{MAX_HINTS}</div>
-              <div className="intro__stat-label">רמזים</div>
-            </div>
             <div className="intro__stat">
               <span className="intro__stat-icon"><IconTimer /></span>
               <div className="intro__stat-num">1</div>
@@ -536,14 +447,6 @@ export default function Quiz100() {
     const questionNumberLabel = `שאלה ${currentQuestion.id} מתוך ${QUESTIONS.length}`;
     const progressLabel = `${currentIndex + 1} / ${activeQuestions.length}`;
 
-    // Progress dots for attempt tracking
-    const attemptDots = Array.from({ length: MAX_ATTEMPTS }, (_, i) => (
-      <span
-        key={i}
-        className={`attempt-dot ${i < attemptNumber ? 'attempt-dot--active' : ''}`}
-      />
-    ));
-
     const explanationBoxClass =
       answerState === 'correct'
         ? 'explanation-box explanation-box--correct'
@@ -565,10 +468,9 @@ export default function Quiz100() {
     return (
       <div className="app-shell">
         <div key={`quiz-${currentIndex}`} ref={screenRef} className="screen screen--quiz anim-slide-right">
-          {/* Header row: progress pill + attempt dots */}
+          {/* Header row: progress pill */}
           <div className="quiz__header">
             <div className="quiz__progress-pill">{progressLabel}</div>
-            <div className="quiz__attempt-dots">{attemptDots}</div>
           </div>
 
           {/* Timer bar */}
@@ -610,28 +512,6 @@ export default function Quiz100() {
             ))}
           </div>
 
-          {/* Hint box — visible once revealed, stays until next question */}
-          {showHint && answerState === null && (
-            <div className="hint-box">
-              <span className="hint-box__badge">
-                <IconLightbulb /> רמז
-              </span>
-              <p className="hint-box__text">{currentQuestion.hint}</p>
-            </div>
-          )}
-
-          {/* Hints button (only before answering) */}
-          {answerState === null && (
-            <button
-              className="hint-btn"
-              onClick={handleUseHint}
-              disabled={hintsLeft <= 0 || showHint}
-            >
-              <IconLightbulb />
-              <span>{showHint ? 'רמז מוצג' : `רמז (${hintsLeft} נותרו)`}</span>
-            </button>
-          )}
-
           {/* Explanation box (after answering) */}
           {answerState !== null && (
             <div className={explanationBoxClass}>
@@ -665,11 +545,11 @@ export default function Quiz100() {
     };
 
     const failedCount = QUESTIONS.filter((q) => !allAnswers[q.id]?.correct).length;
-    const canRetry = !passed && attemptNumber === 1 && failedCount > 0;
+    const canRetry = !passed && !hasRetried && failedCount > 0;
 
     return (
       <div className="app-shell">
-        <div key={`results-${attemptNumber}`} ref={screenRef} className="screen screen--results anim-fade-up">
+        <div key={hasRetried ? 'results-2' : 'results-1'} ref={screenRef} className="screen screen--results anim-fade-up">
           {/* Dog image */}
           <div className="results__dog-wrap">
             <img src={dogResultsImg} alt="כלב" className="results__dog-img" />
@@ -683,19 +563,6 @@ export default function Quiz100() {
             <div className="score-box__sub">
               {correctCount} מתוך {QUESTIONS.length} נכונות
             </div>
-          </div>
-
-          {/* Attempt indicator */}
-          <div className="results__attempt-row">
-            <div className="results__attempt-dots">
-              {Array.from({ length: MAX_ATTEMPTS }, (_, i) => (
-                <span
-                  key={i}
-                  className={`attempt-dot attempt-dot--lg ${i < attemptNumber ? 'attempt-dot--red' : ''}`}
-                />
-              ))}
-            </div>
-            <span className="results__attempt-label">ניסיון {attemptNumber} מתוך {MAX_ATTEMPTS}</span>
           </div>
 
           {/* Question grid */}
