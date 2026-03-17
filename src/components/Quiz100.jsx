@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import './Quiz100.css';
 import dogIntroImg from '../assets/opening.png';
 import dogResultsImg from '../assets/result-message.png';
@@ -257,12 +257,11 @@ export default function Quiz100() {
   const currentQuestion = activeQuestions[currentIndex] || null;
   const isLastQuestion = currentIndex === activeQuestions.length - 1;
 
-  // ── Scroll to top on every screen / question change ────────────────────
   const screenRef = useRef(null);
-  useLayoutEffect(() => {
+  const scrollToTop = () => {
     window.scrollTo(0, 0);
     if (screenRef.current) screenRef.current.scrollTop = 0;
-  }, [screen, currentIndex]);
+  };
 
   // ── Timer ──────────────────────────────────────────────────────────────────
   const stopTimer = useCallback(() => {
@@ -317,6 +316,7 @@ export default function Quiz100() {
   };
 
   const handleNext = () => {
+    scrollToTop();
     if (isLastQuestion) {
       const merged = { ...allAnswers, ...currentAttemptAnswers };
       setAllAnswers(merged);
@@ -339,6 +339,7 @@ export default function Quiz100() {
   const noMoreAttempts = attemptNumber >= MAX_ATTEMPTS && !passed;
 
   const handleRetry = () => {
+    scrollToTop();
     const failedQIds = Object.entries(allAnswers)
       .filter(([, a]) => !a.correct)
       .map(([id]) => parseInt(id, 10));
@@ -371,6 +372,7 @@ export default function Quiz100() {
   };
 
   const startQuiz = () => {
+    scrollToTop();
     setActiveQuestions(shuffle(QUESTIONS));
     setCurrentIndex(0);
     setCurrentAttemptAnswers({});
@@ -515,7 +517,7 @@ export default function Quiz100() {
 
             <button
               className={`btn btn--full ${agreedConfidentiality ? 'btn--green' : 'btn--disabled'}`}
-              onClick={() => agreedConfidentiality && setScreen('quiz')}
+              onClick={() => { if (agreedConfidentiality) { scrollToTop(); setScreen('quiz'); } }}
               disabled={!agreedConfidentiality}
             >
               {agreedConfidentiality ? '← אני מאשר – התחל בוחן' : 'יש לאשר את ההצהרה תחילה'}
