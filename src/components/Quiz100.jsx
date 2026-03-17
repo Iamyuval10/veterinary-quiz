@@ -147,10 +147,19 @@ export default function Quiz100() {
     [currentQuestion]
   );
 
-  // ── Scroll to top (iOS Safari) ────────────────────────────────────────────
+  // ── Scroll to top ─────────────────────────────────────────────────────────
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
   useEffect(() => {
-    document.getElementById('top')?.scrollIntoView();
-  }, [screen, currentIndex]);
+    if (isIOS) {
+      document.body.style.display = 'none';
+      // eslint-disable-next-line no-unused-expressions
+      document.body.offsetHeight;
+      document.body.style.display = '';
+      window.scrollTo(0, 0);
+    } else {
+      document.getElementById('top')?.scrollIntoView();
+    }
+  }, [screen, currentIndex, isIOS]);
 
   // ── Timer ──────────────────────────────────────────────────────────────────
   const stopTimer = useCallback(() => {
