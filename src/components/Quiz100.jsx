@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import './Quiz100.css';
 import dogIntroImg from '../assets/opening.png';
 import dogResultsImg from '../assets/result-message.png';
@@ -201,6 +201,12 @@ export default function Quiz100() {
 
   const currentQuestion = activeQuestions[currentIndex] || null;
   const isLastQuestion = currentIndex === activeQuestions.length - 1;
+
+  const shuffledOptions = useMemo(
+    () => currentQuestion ? shuffle(Object.entries(currentQuestion.options)) : [],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [currentQuestion?.id]
+  );
 
   const screenRef = useRef(null);
   const scrollToTop = () => {
@@ -498,7 +504,7 @@ export default function Quiz100() {
 
           {/* Options */}
           <div className="quiz__options">
-            {Object.entries(currentQuestion.options).map(([key, text]) => (
+            {shuffledOptions.map(([key, text]) => (
               <button
                 key={key}
                 className={getOptionClass(key)}
