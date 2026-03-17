@@ -79,7 +79,7 @@
   justify-content: center;
   align-items: flex-start;
   background: linear-gradient(155deg, #fce8e6 0%, #f4f0eb 40%, #e8f5ee 100%);
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 /* ── Base screen ────────────────────────────────────────────────────────── */

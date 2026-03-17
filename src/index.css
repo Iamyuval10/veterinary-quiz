@@ -6,7 +6,7 @@
 
 html, body {
   height: 100%;
-  overflow: hidden;
+  overflow: auto;
 }
 
 body {
@@ -14,13 +14,13 @@ body {
   direction: rtl;
   background: linear-gradient(160deg, #fce8e6 0%, #e8f5ee 100%);
   height: 100vh;
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 #root {
   width: 100%;
   height: 100vh;
-  overflow: hidden;
+  overflow-y: auto;
   display: flex;
   align-items: flex-start;
   justify-content: center;
