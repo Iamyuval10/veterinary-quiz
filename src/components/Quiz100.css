@@ -957,6 +957,76 @@
 }
 
 /* ────────────────────────────────────────────────────────────────────────── */
+/*  Serial submit button                                                       */
+/* ────────────────────────────────────────────────────────────────────────── */
+.serial-submit-btn {
+  margin-top: 6px;
+}
+
+.serial-submit-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: none;
+  filter: none;
+}
+
+/* ────────────────────────────────────────────────────────────────────────── */
+/*  Serial number confirmation popup                                           */
+/* ────────────────────────────────────────────────────────────────────────── */
+.serial-confirm__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  padding: 24px;
+}
+
+.serial-confirm__card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 28px 24px 24px;
+  width: 100%;
+  max-width: 340px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: fadeScale 0.22s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.serial-confirm__text {
+  font-size: 16px;
+  color: var(--text);
+  text-align: center;
+  line-height: 1.6;
+  margin: 0;
+  direction: rtl;
+}
+
+.serial-confirm__actions {
+  display: flex;
+  gap: 10px;
+}
+
+.serial-confirm__btn {
+  flex: 1;
+}
+
+.btn--outline {
+  background: #fff;
+  color: var(--text-muted);
+  border: 1.5px solid var(--border);
+  box-shadow: none;
+}
+
+.btn--outline:hover {
+  background: #f5f5f5;
+}
+
+/* ────────────────────────────────────────────────────────────────────────── */
 /*  Responsive                                                                */
 /* ────────────────────────────────────────────────────────────────────────── */
 @media (max-width: 460px) {

@@ -136,6 +136,9 @@ export default function Quiz100() {
   const [currentAttemptAnswers, setCurrentAttemptAnswers] = useState({});
   const [allAnswers, setAllAnswers] = useState({});
 
+  // Serial number confirmation popup
+  const [showSerialConfirm, setShowSerialConfirm] = useState(false);
+
   // Timer
   const [timeLeft, setTimeLeft] = useState(QUESTION_TIME);
   const timerRef = useRef(null);
@@ -444,6 +447,8 @@ export default function Quiz100() {
                 <div className="results__serial-inline">
                   <div className="results__serial-inline__label">הזן את מספרך הסידורי:</div>
                   <input
+                    id="serial-number"
+                    name="serial-number"
                     className="results__serial-inline__input"
                     type="text"
                     placeholder="מספר סידורי..."
@@ -451,11 +456,13 @@ export default function Quiz100() {
                     onChange={(e) => setSerialNumber(e.target.value.replace(/\D/g, ''))}
                     dir="rtl"
                   />
-                  {serialNumber.length > 0 && (
-                    <div className="results__serial-inline__display">
-                      המספר הסידורי שלך: {serialNumber}
-                    </div>
-                  )}
+                  <button
+                    className="btn btn--green btn--full serial-submit-btn"
+                    disabled={serialNumber.length === 0}
+                    onClick={() => setShowSerialConfirm(true)}
+                  >
+                    שלח
+                  </button>
                 </div>
               )}
             </div>
@@ -480,10 +487,10 @@ export default function Quiz100() {
             {canRetry ? (
               <>
                 <div className="results__info-box results__info-box--retry">
-                  קיבלת ניסיון נוסף - בוחן המשך רק עם הטעויות
+                  קיבלת ניסיון לתרגול נוסף של שגיאותך - ללא השפעה על הציון
                 </div>
                 <button className="btn btn--pink btn--full" onClick={handleRetry}>
-                  בוחן המשך רק עם הטעויות
+                  בוחן המשך רק עם השגיאות
                 </button>
               </>
             ) : (
@@ -512,6 +519,31 @@ export default function Quiz100() {
         )}
 
       </div>
+
+      {/* ── Serial number confirmation popup ── */}
+      {showSerialConfirm && (
+        <div className="serial-confirm__overlay">
+          <div className="serial-confirm__card">
+            <p className="serial-confirm__text">
+              האם אתה בטוח שמספרך הסידורי הוא: <strong>{serialNumber}</strong>?
+            </p>
+            <div className="serial-confirm__actions">
+              <button
+                className="btn btn--green serial-confirm__btn"
+                onClick={() => setShowSerialConfirm(false)}
+              >
+                כן
+              </button>
+              <button
+                className="btn btn--outline serial-confirm__btn"
+                onClick={() => setShowSerialConfirm(false)}
+              >
+                לא
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
