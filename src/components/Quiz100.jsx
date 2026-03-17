@@ -209,7 +209,7 @@ export default function Quiz100() {
 
   const screenRef = useRef(null);
   const scrollToTop = () => {
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: 'instant' });
     if (screenRef.current) screenRef.current.scrollTop = 0;
   };
 
