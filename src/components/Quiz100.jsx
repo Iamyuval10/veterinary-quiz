@@ -209,32 +209,22 @@ export default function Quiz100() {
 
   const screenRef = useRef(null);
   const scrollToTop = () => {
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
     window.scrollTo({ top: 0, behavior: 'instant' });
     if (screenRef.current) screenRef.current.scrollTop = 0;
     const el = document.querySelector('.screen');
     if (el) el.scrollTop = 0;
   };
 
-  // גלילה אוטומטית בכל פעם שהמסך משתנה או שהשאלה מתחלפת
-useEffect(() => {
-  // 1. גלילה של חלון הדפדפן הראשי
-  window.scrollTo(0, 0);
-
-  // 2. גלילה של הדיב הספציפי (במידה והוא זה שגולל ב-CSS)
-  const screenElements = document.querySelectorAll('.screen');
-  screenElements.forEach(el => {
-    el.scrollTop = 0;
-  });
-  
-  // 3. טיפול ב-app-shell אם הוא זה שתקוע
-  const shell = document.querySelector('.app-shell');
-  if (shell) shell.scrollTop = 0;
-
-}, [screen, currentIndex]); // יופעל בכל שינוי מסך או שאלה
-
   useEffect(() => {
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
     window.scrollTo(0, 0);
-  }, [screen]);
+    document.querySelectorAll('.screen').forEach(el => { el.scrollTop = 0; });
+    const shell = document.querySelector('.app-shell');
+    if (shell) shell.scrollTop = 0;
+  }, [screen, currentIndex]);
 
   // ── Timer ──────────────────────────────────────────────────────────────────
   const stopTimer = useCallback(() => {
