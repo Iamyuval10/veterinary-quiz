@@ -126,6 +126,7 @@ export default function Quiz100() {
 
   // Quiz progress
   const [hasRetried, setHasRetried] = useState(false);
+  const [firstAttemptScore, setFirstAttemptScore] = useState(null);
   const [activeQuestions, setActiveQuestions] = useState([...QUESTIONS]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -230,6 +231,7 @@ export default function Quiz100() {
   const passed = finalScore === 100;
 
   const handleRetry = () => {
+    setFirstAttemptScore(finalScore);
     const failedQIds = Object.entries(allAnswers)
       .filter(([, a]) => !a.correct)
       .map(([id]) => parseInt(id, 10));
@@ -252,6 +254,7 @@ export default function Quiz100() {
     setSelectedOption(null);
     setAnswerState(null);
     setHasRetried(false);
+    setFirstAttemptScore(null);
     setScreen('confidentiality');
   };
 
@@ -334,17 +337,6 @@ export default function Quiz100() {
                 <div className="intro__stat-num">{QUESTIONS.length}</div>
                 <div className="intro__stat-label">שאלות</div>
               </div>
-            </div>
-            <div className="intro__serial-group">
-              <div className="intro__serial-label">הזן פרטים:</div>
-              <input
-                className="intro__serial-input"
-                type="text"
-                placeholder="מספר סידורי..."
-                value={serialNumber}
-                onChange={(e) => setSerialNumber(e.target.value.replace(/\D/g, ''))}
-                dir="rtl"
-              />
             </div>
             <button className="btn btn--green btn--full" onClick={startQuiz}>
               ← התחל בוחן
@@ -447,6 +439,22 @@ export default function Quiz100() {
             <div className="results__dog-wrap">
               <img src={dogResultsImg} alt="כלב" className="results__dog-img" />
             </div>
+            <div className="results__serial-card">
+              <div className="results__serial-title">הזן מספר סידורי</div>
+              <input
+                className="results__serial-input"
+                type="text"
+                placeholder="מספר סידורי..."
+                value={serialNumber}
+                onChange={(e) => setSerialNumber(e.target.value.replace(/\D/g, ''))}
+                dir="rtl"
+              />
+              {serialNumber.length > 0 && (
+                <div className="results__serial-display">
+                  המספר הסידורי שלך: {serialNumber}
+                </div>
+              )}
+            </div>
             <div className={scoreBgClass}>
               <div className="score-box__percent" style={{ color: scoreColor }}>{finalScore}%</div>
               <div className="score-box__sub">{correctCount} מתוך {QUESTIONS.length} נכונות</div>
@@ -465,12 +473,7 @@ export default function Quiz100() {
                 );
               })}
             </div>
-            {passed ? (
-              <div className="results__info-box results__info-box--pass">
-                <strong>כל הכבוד! 🎉</strong><br />
-                עברת את הבוחן בהצלחה עם ציון מושלם!
-              </div>
-            ) : canRetry ? (
+            {canRetry ? (
               <>
                 <div className="results__info-box results__info-box--retry">
                   קיבלת ניסיון נוסף - בוחן המשך רק עם הטעויות
@@ -480,11 +483,26 @@ export default function Quiz100() {
                 </button>
               </>
             ) : (
-              <div className="results__info-box results__info-box--no-attempts">
-                <div className="results__info-box__header">🚫 לא ניתן לנסות שוב</div>
-                השתמשת בניסיון החוזר שלך.<br />
-                מומלץ לעבור על החומר שנית.
-              </div>
+              <>
+                {passed && (
+                  <div className="results__info-box results__info-box--pass">
+                    <strong>כל הכבוד! 🎉</strong><br />
+                    עברת את הבוחן בהצלחה עם ציון מושלם!
+                  </div>
+                )}
+                {!passed && (
+                  <div className="results__info-box results__info-box--no-attempts">
+                    <div className="results__info-box__header">🚫 לא ניתן לנסות שוב</div>
+                    השתמשת בניסיון החוזר שלך.<br />
+                    מומלץ לעבור על החומר שנית.
+                  </div>
+                )}
+                {hasRetried && firstAttemptScore !== null && (
+                  <div className="results__scores-row">
+                    ניסיון ראשון: {firstAttemptScore}% &nbsp;|&nbsp; ניסיון שני: {finalScore}%
+                  </div>
+                )}
+              </>
             )}
           </div>
         )}
