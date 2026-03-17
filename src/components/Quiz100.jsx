@@ -336,7 +336,6 @@ export default function Quiz100() {
 
   const finalScore = calcScore(allAnswers);
   const passed = finalScore === 100;
-  const noMoreAttempts = attemptNumber >= MAX_ATTEMPTS && !passed;
 
   const handleRetry = () => {
     scrollToTop();
@@ -662,7 +661,7 @@ export default function Quiz100() {
     };
 
     const failedCount = QUESTIONS.filter((q) => !allAnswers[q.id]?.correct).length;
-    const canRetry = !passed && attemptNumber < MAX_ATTEMPTS;
+    const canRetry = !passed && attemptNumber === 1 && failedCount > 0;
 
     return (
       <div className="app-shell">
@@ -721,27 +720,24 @@ export default function Quiz100() {
               <br />
               עברת את הבוחן בהצלחה עם ציון מושלם!
             </div>
-          ) : noMoreAttempts ? (
+          ) : canRetry ? (
+            <>
+              <div className="results__info-box results__info-box--retry">
+                קיבלת ניסיון נוסף - בוחן המשך רק עם הטעויות
+              </div>
+              <button className="btn btn--pink btn--full" onClick={handleRetry}>
+                בוחן המשך רק עם הטעויות
+              </button>
+            </>
+          ) : (
             <div className="results__info-box results__info-box--no-attempts">
               <div className="results__info-box__header">
-                🚫 הגעת לניסיון השלישי שלך
+                🚫 לא ניתן לנסות שוב
               </div>
-              לא ייתכנו עוד ניסיונות בבוחן זה.
+              השתמשת בניסיון החוזר שלך.
               <br />
               מומלץ לעבור על החומר שנית.
             </div>
-          ) : (
-            <>
-              <div className="results__info-box results__info-box--retry">
-                <div className="results__info-box__header">
-                  ← הסיבוב הבא – רק השגיאות
-                </div>
-                יש לך {failedCount} שגיאות. הבוחן ימשיך עם שאלות אלו בלבד, עד שתענה על כולן נכון.
-              </div>
-              <button className="btn btn--pink btn--full" onClick={handleRetry}>
-                ↺ לחץ להמשך
-              </button>
-            </>
           )}
         </div>
       </div>
