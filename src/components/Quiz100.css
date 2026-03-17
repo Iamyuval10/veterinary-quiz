@@ -896,7 +896,7 @@
 /* ────────────────────────────────────────────────────────────────────────── */
 @media (max-width: 460px) {
   .screen {
-    padding: 0 14px 28px;
+    padding: 50px 14px 28px;
   }
 
   .quiz__question-text {
