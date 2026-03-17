@@ -436,26 +436,30 @@ export default function Quiz100() {
         {/* ── RESULTS ── */}
         {screen === 'results' && (
           <div key={hasRetried ? 'results-2' : 'results-1'} className="screen screen--results anim-fade-up">
-            <div className="results__dog-wrap">
-              <img src={dogResultsImg} alt="כלב" className="results__dog-img" />
-            </div>
-            <div className="results__serial-card">
-              <div className="results__serial-title">הזן מספר סידורי</div>
-              <input
-                className="results__serial-input"
-                type="text"
-                placeholder="מספר סידורי..."
-                value={serialNumber}
-                onChange={(e) => setSerialNumber(e.target.value.replace(/\D/g, ''))}
-                dir="rtl"
-              />
-              {serialNumber.length > 0 && (
-                <div className="results__serial-display">
-                  המספר הסידורי שלך: {serialNumber}
+            <div className="results__dog-serial-wrap">
+              <div className="results__dog-wrap">
+                <img src={dogResultsImg} alt="כלב" className="results__dog-img" />
+              </div>
+              {!canRetry && (
+                <div className="results__serial-inline">
+                  <div className="results__serial-inline__label">הזן את מספרך הסידורי:</div>
+                  <input
+                    className="results__serial-inline__input"
+                    type="text"
+                    placeholder="מספר סידורי..."
+                    value={serialNumber}
+                    onChange={(e) => setSerialNumber(e.target.value.replace(/\D/g, ''))}
+                    dir="rtl"
+                  />
+                  {serialNumber.length > 0 && (
+                    <div className="results__serial-inline__display">
+                      המספר הסידורי שלך: {serialNumber}
+                    </div>
+                  )}
                 </div>
               )}
             </div>
-            <div className={scoreBgClass}>
+            <div className={`${scoreBgClass}${canRetry ? ' score-box--flush-top' : ''}`}>
               <div className="score-box__percent" style={{ color: scoreColor }}>{finalScore}%</div>
               <div className="score-box__sub">{correctCount} מתוך {QUESTIONS.length} נכונות</div>
             </div>
