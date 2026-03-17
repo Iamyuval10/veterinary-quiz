@@ -766,5 +766,4 @@ export default function Quiz100() {
     setHasRetried(false);
     setScreen('confidentiality');
   };
-
-  // ... (שאר הרינדור נשאר ללא שינוי)
+}
