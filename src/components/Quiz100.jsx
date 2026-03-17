@@ -209,21 +209,23 @@ export default function Quiz100() {
 
   const screenRef = useRef(null);
   const scrollToTop = () => {
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
-    window.scrollTo({ top: 0, behavior: 'instant' });
-    if (screenRef.current) screenRef.current.scrollTop = 0;
-    const el = document.querySelector('.screen');
-    if (el) el.scrollTop = 0;
+    setTimeout(() => {
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      window.scrollTo(0, 0);
+      if (screenRef.current) screenRef.current.scrollTop = 0;
+    }, 50);
   };
 
   useEffect(() => {
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
-    window.scrollTo(0, 0);
-    document.querySelectorAll('.screen').forEach(el => { el.scrollTop = 0; });
-    const shell = document.querySelector('.app-shell');
-    if (shell) shell.scrollTop = 0;
+    setTimeout(() => {
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      window.scrollTo(0, 0);
+      document.querySelectorAll('.screen').forEach(el => { el.scrollTop = 0; });
+      const shell = document.querySelector('.app-shell');
+      if (shell) shell.scrollTop = 0;
+    }, 50);
   }, [screen, currentIndex]);
 
   // ── Timer ──────────────────────────────────────────────────────────────────
