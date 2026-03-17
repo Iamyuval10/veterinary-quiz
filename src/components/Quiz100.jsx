@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect, useRef, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import './Quiz100.css';
 import dogIntroImg from '../assets/opening.png';
 import dogResultsImg from '../assets/result-message.png';
@@ -147,13 +147,6 @@ export default function Quiz100() {
     [currentQuestion]
   );
 
-  // ── Single persistent scroll container ────────────────────────────────────
-  const containerRef = useRef(null);
-
-  useLayoutEffect(() => {
-    if (containerRef.current) containerRef.current.scrollTop = 0;
-  }, [screen, currentIndex]);
-
   // ── Timer ──────────────────────────────────────────────────────────────────
   const stopTimer = useCallback(() => {
     if (timerRef.current) {
@@ -162,12 +155,12 @@ export default function Quiz100() {
     }
   }, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (screen !== 'quiz') return;
     setTimeLeft(QUESTION_TIME);
   }, [screen, currentIndex]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (screen !== 'quiz' || answerState !== null) {
       stopTimer();
       return;
@@ -178,7 +171,7 @@ export default function Quiz100() {
     return stopTimer;
   }, [screen, currentIndex, answerState, stopTimer]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (timeLeft === 0 && screen === 'quiz' && answerState === null && currentQuestion) {
       stopTimer();
       setAnswerState('timeout');
@@ -203,7 +196,6 @@ export default function Quiz100() {
   };
 
   const handleNext = () => {
-    if (containerRef.current) containerRef.current.scrollTop = 0;
     if (isLastQuestion) {
       const merged = { ...allAnswers, ...currentAttemptAnswers };
       setAllAnswers(merged);
@@ -224,7 +216,6 @@ export default function Quiz100() {
   const passed = finalScore === 100;
 
   const handleRetry = () => {
-    if (containerRef.current) containerRef.current.scrollTop = 0;
     const failedQIds = Object.entries(allAnswers)
       .filter(([, a]) => !a.correct)
       .map(([id]) => parseInt(id, 10));
@@ -240,7 +231,6 @@ export default function Quiz100() {
   };
 
   const startQuiz = () => {
-    if (containerRef.current) containerRef.current.scrollTop = 0;
     setActiveQuestions(shuffle(QUESTIONS));
     setCurrentIndex(0);
     setCurrentAttemptAnswers({});
@@ -309,7 +299,7 @@ export default function Quiz100() {
 
   // ── Single return with persistent scroll container ─────────────────────────
   return (
-    <div ref={containerRef} className="scroll-container">
+    <div key={screen + '-' + currentIndex} className="scroll-container">
       <div className="app-shell">
 
         {/* ── INTRO ── */}
@@ -381,10 +371,7 @@ export default function Quiz100() {
               <button
                 className={`btn btn--full ${agreedConfidentiality ? 'btn--green' : 'btn--disabled'}`}
                 onClick={() => {
-                  if (agreedConfidentiality) {
-                    if (containerRef.current) containerRef.current.scrollTop = 0;
-                    setScreen('quiz');
-                  }
+                  if (agreedConfidentiality) setScreen('quiz');
                 }}
                 disabled={!agreedConfidentiality}
               >
