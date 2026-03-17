@@ -143,13 +143,10 @@ export default function Quiz100() {
   const currentQuestion = activeQuestions[currentIndex] || null;
   const isLastQuestion = currentIndex === activeQuestions.length - 1;
 
-  const shuffledOptions = useMemo(() => {
-    if (!currentQuestion) return [];
-    const entries = Object.entries(currentQuestion.options);
-    const correct = entries.find(([key]) => key === currentQuestion.correct);
-    const incorrect = shuffle(entries.filter(([key]) => key !== currentQuestion.correct));
-    return [correct, ...incorrect];
-  }, [currentQuestion]);
+  const shuffledOptions = useMemo(
+    () => currentQuestion ? shuffle(Object.entries(currentQuestion.options)) : [],
+    [currentQuestion]
+  );
 
   // ── Scroll to top ─────────────────────────────────────────────────────────
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
