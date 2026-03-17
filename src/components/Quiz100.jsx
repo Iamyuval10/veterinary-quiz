@@ -260,6 +260,7 @@ export default function Quiz100() {
   // ── Scroll to top on every screen / question change ────────────────────
   const screenRef = useRef(null);
   useLayoutEffect(() => {
+    window.scrollTo(0, 0);
     if (screenRef.current) screenRef.current.scrollTop = 0;
   }, [screen, currentIndex]);
 
@@ -430,7 +431,7 @@ export default function Quiz100() {
   if (screen === 'intro') {
     return (
       <div className="app-shell">
-        <div key="intro" ref={screenRef} className="screen screen--intro anim-fade-up" style={{ paddingTop: '25vh' }}>
+        <div key="intro" ref={screenRef} className="screen screen--intro anim-fade-up" style={{ paddingTop: '10vh' }}>
           <div className="intro__dog-wrap">
             <img src={dogIntroImg} alt="בוחן זיהומים" className="intro__dog-img" />
           </div>
