@@ -211,6 +211,8 @@ export default function Quiz100() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'instant' });
     if (screenRef.current) screenRef.current.scrollTop = 0;
+    const el = document.querySelector('.screen');
+    if (el) el.scrollTop = 0;
   };
 
   useEffect(() => {
