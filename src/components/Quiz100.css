@@ -452,8 +452,8 @@
 }
 
 .option:hover:not(:disabled) {
-  border-color: var(--green-med);
-  background: var(--green-lightest);
+  border-color: #e8d5b0;
+  background: #fdf6e3;
 }
 
 .option:disabled {
