@@ -204,8 +204,7 @@ export default function Quiz100() {
 
   const shuffledOptions = useMemo(
     () => currentQuestion ? shuffle(Object.entries(currentQuestion.options)) : [],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [currentQuestion?.id]
+    [currentQuestion]
   );
 
   const screenRef = useRef(null);
