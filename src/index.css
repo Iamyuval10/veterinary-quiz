@@ -4,23 +4,20 @@
   padding: 0;
 }
 
-html, body {
-  height: 100%;
-  overflow: auto;
+html {
+  min-height: 100%;
 }
 
 body {
   font-family: 'Heebo', sans-serif;
   direction: rtl;
   background: linear-gradient(160deg, #fce8e6 0%, #e8f5ee 100%);
-  height: 100vh;
-  overflow-y: auto;
+  min-height: 100vh;
 }
 
 #root {
   width: 100%;
-  height: 100vh;
-  overflow-y: auto;
+  min-height: 100vh;
   display: flex;
   align-items: flex-start;
   justify-content: center;
