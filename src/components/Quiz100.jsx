@@ -147,6 +147,11 @@ export default function Quiz100() {
     [currentQuestion]
   );
 
+  // ── Scroll to top (iOS Safari) ────────────────────────────────────────────
+  useEffect(() => {
+    document.getElementById('top')?.scrollIntoView();
+  }, [screen, currentIndex]);
+
   // ── Timer ──────────────────────────────────────────────────────────────────
   const stopTimer = useCallback(() => {
     if (timerRef.current) {
@@ -300,6 +305,7 @@ export default function Quiz100() {
   // ── Single return with persistent scroll container ─────────────────────────
   return (
     <div key={screen + '-' + currentIndex} className="scroll-container">
+      <div id="top" />
       <div className="app-shell">
 
         {/* ── INTRO ── */}
