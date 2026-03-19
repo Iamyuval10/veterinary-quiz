@@ -697,6 +697,7 @@
   padding: 20px 16px 16px;
   text-align: center;
   border: 2px solid;
+  margin-top: -16px;
 }
 
 .score-box--fail {
