@@ -121,7 +121,6 @@ const IconX = () => (
 export default function Quiz100() {
   // Screen state
   const [screen, setScreen] = useState('intro');
-  const [serialNumber, setSerialNumber] = useState('');
   const [agreedConfidentiality, setAgreedConfidentiality] = useState(false);
 
   // Quiz progress
@@ -135,9 +134,6 @@ export default function Quiz100() {
   // Answers
   const [currentAttemptAnswers, setCurrentAttemptAnswers] = useState({});
   const [allAnswers, setAllAnswers] = useState({});
-
-  // Serial number confirmation popup
-  const [showSerialConfirm, setShowSerialConfirm] = useState(false);
 
   // Timer
   const [timeLeft, setTimeLeft] = useState(QUESTION_TIME);
@@ -445,34 +441,10 @@ export default function Quiz100() {
         {/* ── RESULTS ── */}
         {screen === 'results' && (
           <div key={hasRetried ? 'results-2' : 'results-1'} className="screen screen--results anim-fade-up">
-            <div className="results__dog-serial-wrap">
-              <div className="results__dog-wrap">
-                <img src={dogResultsImg} alt="כלב" className="results__dog-img" />
-              </div>
-              {!canRetry && (
-                <div className="results__serial-inline">
-                  <div className="results__serial-inline__label">הזן את מספרך הסידורי:</div>
-                  <input
-                    id="serial-number"
-                    name="serial-number"
-                    className="results__serial-inline__input"
-                    type="text"
-                    placeholder="מספר סידורי..."
-                    value={serialNumber}
-                    onChange={(e) => setSerialNumber(e.target.value.replace(/\D/g, ''))}
-                    dir="rtl"
-                  />
-                  <button
-                    className="btn btn--green btn--full serial-submit-btn"
-                    disabled={serialNumber.length === 0}
-                    onClick={() => setShowSerialConfirm(true)}
-                  >
-                    שלח
-                  </button>
-                </div>
-              )}
+            <div className="results__dog-wrap">
+              <img src={dogResultsImg} alt="כלב" className="results__dog-img" />
             </div>
-            <div className={`${scoreBgClass}${canRetry ? ' score-box--flush-top' : ''}`}>
+            <div className={`${scoreBgClass}`}>
               <div className="score-box__percent" style={{ color: scoreColor }}>{finalScore}%</div>
               <div className="score-box__sub">{correctCount} מתוך {QUESTIONS.length} נכונות</div>
             </div>
@@ -526,30 +498,6 @@ export default function Quiz100() {
 
       </div>
 
-      {/* ── Serial number confirmation popup ── */}
-      {showSerialConfirm && (
-        <div className="serial-confirm__overlay">
-          <div className="serial-confirm__card">
-            <p className="serial-confirm__text">
-              האם אתה בטוח שמספרך הסידורי הוא: <strong>{serialNumber}</strong>?
-            </p>
-            <div className="serial-confirm__actions">
-              <button
-                className="btn btn--green serial-confirm__btn"
-                onClick={() => setShowSerialConfirm(false)}
-              >
-                כן
-              </button>
-              <button
-                className="btn btn--outline serial-confirm__btn"
-                onClick={() => setShowSerialConfirm(false)}
-              >
-                לא
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
