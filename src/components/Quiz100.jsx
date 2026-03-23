@@ -217,6 +217,12 @@ export default function Quiz100() {
     if (isLastQuestion) {
       const merged = { ...allAnswers, ...currentAttemptAnswers };
       setAllAnswers(merged);
+      const score = calcScore(merged);
+      if (typeof window.finishTestSCROM === "function") {
+        window.finishTestSCROM(score, 50);
+      } else {
+        console.log("SCORM not available");
+      }
       setScreen('results');
     } else {
       setCurrentIndex((i) => i + 1);
