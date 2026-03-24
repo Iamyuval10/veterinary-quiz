@@ -2,78 +2,75 @@ import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import './Quiz100.css';
 import dogIntroImg from '../assets/opening.png';
 import dogResultsImg from '../assets/result-message.png';
+import sickDogImage from '../assets/sick-dog-image.png';
 
 // ─── Question Bank ────────────────────────────────────────────────────────────
 const QUESTIONS = [
   {
     id: 1,
-    text: 'מהי טמפרטורת הגוף התקינה של כלב בריא?',
-    options: { A: '35.5–36.5°C', B: '37.5–39.2°C', C: '40.0–41.5°C', D: '36.0–37.0°C' },
+    text: 'אילו דברים עלולים לפגוע ביכולת הכלב לקרר את עצמו?',
+    options: {
+      A: 'זמם, רתמה, לחות גבוהה ורוח חזקה',
+      B: 'זמם, האלטי, כפפות וחום סביבתי גבוה',
+      C: 'לחות נמוכה, אטמים, האלטי וזמם',
+      D: 'זמם צפון, כושר גבוה, קולר ואטמים',
+      E: 'כל התשובות נכונות',
+    },
     correct: 'B',
-    explanation: 'טמפרטורת הגוף התקינה של כלב היא 37.5–39.2°C. חום מעל 39.5°C נחשב לחום גבוה הדורש בדיקה וטרינרית.',
+    explanation: '',
   },
   {
     id: 2,
-    text: 'מהו החיסון הבסיסי הניתן לגורי כלבים בגיל 8 שבועות?',
-    options: { A: 'חיסון לכלבת בלבד', B: 'חיסון DHPP משולב', C: 'חיסון ללפטוספירוזה', D: 'חיסון לבורדטלה' },
-    correct: 'B',
-    explanation: 'חיסון DHPP (Distemper, Hepatitis, Parainfluenza, Parvovirus) הוא החיסון הבסיסי הניתן לגורים בגיל 8 שבועות.',
+    text: 'מהו סדר הטיפול הנכון במכות חום?',
+    options: {
+      A: 'קירור הכלב, עירוי תוך ורידי, לקיחת מדדים, פינוי',
+      B: 'חדילת הכלב, עירוי תוך ורידי, קירור, פינוי',
+      C: 'חדילת הכלב, לקיחת מדדים וקירור, עירוי תוך ורידי, פינוי',
+      D: 'פינוי, לקיחת מדדים, פתיחת וריד',
+    },
+    correct: 'C',
+    explanation: '',
   },
   {
     id: 3,
-    text: 'איזה טפיל אחראי למחלת הלישמניה בכלבים?',
-    options: { A: 'Toxoplasma gondii', B: 'Dirofilaria immitis', C: 'Leishmania infantum', D: 'Babesia canis' },
-    correct: 'C',
-    explanation: 'Leishmania infantum הוא הטפיל החד-תאי האחראי למחלת הלישמניה בכלבים, המועבר על ידי יתוש הפלבוטומוס.',
+    text: 'מה ניתן להערכתך גרם למצב בתמונה?',
+    image: sickDogImage,
+    hasImage: true,
+    options: {
+      A: 'שט"ד כתוצאה מהכשת נחש בלשון',
+      B: 'שט"ד משניים למכת חום קשה',
+      C: 'ייתכן אבצס על רקע מלען שנתקע מתחת ללשון',
+      D: 'נמק כתוצאה ממגע עם זחל התהלוכן',
+    },
+    correct: 'D',
+    explanation: '',
   },
   {
     id: 4,
-    text: 'מהו הסימן הקליני האופייני ביותר לפניאומוניה בכלב?',
-    options: { A: 'שלשול כרוני ואובדן משקל', B: 'שיעול ועלייה בקצב הנשימה', C: 'צהבת ואנמיה', D: 'תסמיני עצבים ופרכוסים' },
-    correct: 'B',
-    explanation: 'פניאומוניה בכלב מאופיינת בשיעול, עלייה בקצב הנשימה (טכיפנאה), קשיי נשימה וחום.',
+    text: 'מה הגורמים המשפיעים על סיכון לארוע חום?',
+    options: {
+      A: 'גורמים סביבתיים כמו תוואי האימון',
+      B: 'גורמים אירגוניים כגון זמני מנוחה',
+      C: 'גורמים אינדיבידואלים כגון כושר גופני',
+      D: 'גורמים סביבתיים כגון אחוזי הלחות',
+      E: 'תשובות 1, 3 ו-4',
+      F: 'תשובות 2, 3 ו-4',
+      G: 'כל התשובות נכונות',
+    },
+    correct: 'F',
+    explanation: '',
   },
   {
     id: 5,
-    text: 'מהו הטיפול הראשוני המועדף לכלב עם הרעלת אורגנופוספטים?',
-    options: { A: 'אטרופין ופרלידוקסים', B: 'פניצילין ופרדניזון', C: 'פואורוסמיד ותיאמין', D: 'גלוקוז תוך-ורידי' },
-    correct: 'A',
-    explanation: 'הטיפול בהרעלת אורגנופוספטים כולל אטרופין (לחסום אצטילכולין) ופרלידוקסים (להחיות את האצטילכולינאסטראז).',
-  },
-  {
-    id: 6,
-    text: 'מהו מנגנון הפעולה של תרופת האיברמקטין בכלבים?',
-    options: { A: 'מעכב סינתזת חלבון בחיידקים', B: 'מגביר חדירות ממברנה לכלוריד בחסרי חוליות', C: 'חוסם קולטני בטא-אדרנרגי', D: 'מעכב אנזים ה-ACE' },
-    correct: 'B',
-    explanation: 'איברמקטין פועל על ידי הגברת חדירות ממברנת העצב לכלוריד בחסרי חוליות, מה שגורם לשיתוק ומוות של הטפיל.',
-  },
-  {
-    id: 7,
-    text: 'איזו מחלה מועברת על ידי קרציות וגורמת לאנמיה המוליטית חמורה בכלבים?',
-    options: { A: 'Ehrlichia canis', B: 'Babesia canis', C: 'Borrelia burgdorferi', D: 'Anaplasma platys' },
-    correct: 'B',
-    explanation: 'Babesia canis היא טפיל תוך-כדורית דם הגורם להרס כדוריות דם אדומות ואנמיה המוליטית חמורה.',
-  },
-  {
-    id: 8,
-    text: 'מה משמעות ערך BUN גבוה בבדיקת דם של כלב?',
-    options: { A: 'בעיה בתפקוד הכבד', B: 'בעיה בתפקוד הכליות', C: 'חסר ברזל', D: 'זיהום חיידקי פעיל' },
-    correct: 'B',
-    explanation: 'BUN (Blood Urea Nitrogen) הוא תוצר פירוק חלבון המופרש על ידי הכליות. ערך גבוה מעיד על ירידה בסינון הגלומרולרי ואי-ספיקת כליות.',
-  },
-  {
-    id: 9,
-    text: 'מהו גיל הגמילה המומלץ לגורי כלבים מהאם?',
-    options: { A: '3–4 שבועות', B: '6–8 שבועות', C: '10–12 שבועות', D: '4–5 שבועות' },
-    correct: 'B',
-    explanation: 'גיל הגמילה המומלץ הוא 6–8 שבועות. גמילה מוקדמת מדי עלולה לגרום לבעיות התנהגות ועיכוב בפיתוח מערכת החיסון.',
-  },
-  {
-    id: 10,
-    text: 'מהו הוירוס הגורם לפרבוווירוס בכלבים?',
-    options: { A: 'Canine Coronavirus', B: 'Canine Parvovirus type 2 (CPV-2)', C: 'Canine Distemper Virus', D: 'Canine Adenovirus' },
-    correct: 'B',
-    explanation: 'פרבוווירוס בכלבים נגרם על ידי Canine Parvovirus type 2 (CPV-2), וירוס הפוגע במעיים ובמח העצם ומסכן חיים ללא טיפול.',
+    text: 'במקרה של הכשת נחש, מה לא תעשה?',
+    options: {
+      A: 'אחדול את הכלב בהקדם',
+      B: 'אפתח וריד ואתן עירוי',
+      C: 'אדאג לצלם את הנחש על מנת להכווין את המטפל',
+      D: 'פינוי בהקדם גם על חשבון פתיחת וריד',
+    },
+    correct: 'C',
+    explanation: '',
   },
 ];
 
@@ -134,6 +131,10 @@ export default function Quiz100() {
   // Answers
   const [currentAttemptAnswers, setCurrentAttemptAnswers] = useState({});
   const [allAnswers, setAllAnswers] = useState({});
+
+  // Image question state
+  const [imageRevealed, setImageRevealed] = useState(false);
+  const [showImagePopup, setShowImagePopup] = useState(false);
 
   // Timer
   const [timeLeft, setTimeLeft] = useState(QUESTION_TIME);
@@ -210,6 +211,8 @@ export default function Quiz100() {
   };
 
   const handleNext = () => {
+    setImageRevealed(false);
+    setShowImagePopup(false);
     if (isLastQuestion) {
       const merged = { ...allAnswers, ...currentAttemptAnswers };
       setAllAnswers(merged);
