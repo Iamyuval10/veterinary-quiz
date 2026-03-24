@@ -534,6 +534,11 @@ export default function Quiz100() {
             <div className="results__dog-wrap">
               <img src={dogResultsImg} alt="כלב" className="results__dog-img" />
             </div>
+            {hasRetried && firstAttemptScore !== null && (
+              <div className="results__scores-row">
+                ניסיון ראשון: {firstAttemptScore}% &nbsp;|&nbsp; ניסיון שני: {finalScore}%
+              </div>
+            )}
             <div className={`${scoreBgClass}`}>
               <div className="score-box__percent" style={{ color: scoreColor }}>{finalScore}%</div>
               <div className="score-box__sub">{correctCount} מתוך {QUESTIONS.length} נכונות</div>
@@ -574,11 +579,6 @@ export default function Quiz100() {
                     <div className="results__info-box__header">🚫 לא ניתן לנסות שוב</div>
                     השתמשת בניסיון החוזר שלך.<br />
                     מומלץ לעבור על החומר שנית.
-                  </div>
-                )}
-                {hasRetried && firstAttemptScore !== null && (
-                  <div className="results__scores-row">
-                    ניסיון ראשון: {firstAttemptScore}% &nbsp;|&nbsp; ניסיון שני: {finalScore}%
                   </div>
                 )}
               </>
