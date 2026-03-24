@@ -251,6 +251,8 @@ export default function Quiz100() {
     setSelectedOption(null);
     setAnswerState(null);
     setTimeLeft(QUESTION_TIME);
+    setImageRevealed(false);
+    setShowImagePopup(false);
     setScreen('quiz');
   };
 
@@ -263,6 +265,8 @@ export default function Quiz100() {
     setAnswerState(null);
     setHasRetried(false);
     setFirstAttemptScore(null);
+    setImageRevealed(false);
+    setShowImagePopup(false);
     setScreen('confidentiality');
   };
 
@@ -399,44 +403,127 @@ export default function Quiz100() {
         {/* ── QUIZ ── */}
         {screen === 'quiz' && currentQuestion && (
           <div key={`quiz-${currentIndex}`} className="screen screen--quiz anim-slide-right">
-            <div className="quiz__header">
-              <div className="quiz__progress-pill">{progressLabel}</div>
-            </div>
-            <div className="quiz__timer-row">
-              <span className="quiz__timer-label" style={{ color: timerColor }}>{timeLeft}s</span>
-              <div className="quiz__timer-track">
-                <div
-                  className="quiz__timer-bar"
-                  style={{ width: `${timerPercent}%`, backgroundColor: timerColor, transition: 'width 1s linear, background-color 0.5s' }}
+
+            {/* Image popup overlay */}
+            {currentQuestion.hasImage && showImagePopup && (
+              <div
+                style={{
+                  position: 'fixed', inset: 0, zIndex: 9999,
+                  background: 'rgba(0,0,0,0.75)',
+                  display: 'flex', flexDirection: 'column',
+                  alignItems: 'center', justifyContent: 'center', gap: 16,
+                }}
+              >
+                <img
+                  src={currentQuestion.image}
+                  alt="תמונת שאלה"
+                  style={{ maxWidth: '90vw', maxHeight: '80vh', objectFit: 'contain', borderRadius: 8 }}
                 />
-              </div>
-            </div>
-            <div className="quiz__question-card">
-              <span className="quiz__question-badge">{questionNumberLabel}</span>
-              <p className="quiz__question-text">{currentQuestion.text}</p>
-            </div>
-            <div className="quiz__options">
-              {shuffledOptions.map(([key, text]) => (
                 <button
-                  key={key}
-                  className={getOptionClass(key)}
-                  onClick={() => handleSelectOption(key)}
-                  disabled={answerState !== null}
+                  onClick={() => setShowImagePopup(false)}
+                  style={{
+                    border: '1px solid #C8956C', borderRadius: 8,
+                    background: 'none', color: '#C8956C', fontSize: '0.85rem',
+                    padding: '8px 12px', cursor: 'pointer', fontWeight: 500,
+                    minWidth: 120,
+                  }}
                 >
-                  <span className="option__letter">{key}</span>
-                  <span className="option__text">{text}</span>
-                  {getOptionIcon(key)}
-                </button>
-              ))}
-            </div>
-            {answerState !== null && (
-              <div className={explanationBoxClass}>
-                <span className="explanation-box__badge">{explanationBadge}</span>
-                <p className="explanation-box__text">{currentQuestion.explanation}</p>
-                <button className="btn btn--green btn--full" onClick={handleNext}>
-                  {isLastQuestion ? 'סיים בוחן ←' : `← המשך לשאלה ${currentIndex + 2}`}
+                  ✕ סגור
                 </button>
               </div>
+            )}
+
+            {/* Step 1: image + question text + reveal button (before imageRevealed) */}
+            {currentQuestion.hasImage && !imageRevealed ? (
+              <>
+                <div className="quiz__header">
+                  <div className="quiz__progress-pill">{progressLabel}</div>
+                </div>
+                <div className="quiz__timer-row">
+                  <span className="quiz__timer-label" style={{ color: timerColor }}>{timeLeft}s</span>
+                  <div className="quiz__timer-track">
+                    <div
+                      className="quiz__timer-bar"
+                      style={{ width: `${timerPercent}%`, backgroundColor: timerColor, transition: 'width 1s linear, background-color 0.5s' }}
+                    />
+                  </div>
+                </div>
+                <div className="quiz__question-card">
+                  <span className="quiz__question-badge">{questionNumberLabel}</span>
+                  <p className="quiz__question-text">{currentQuestion.text}</p>
+                </div>
+                <img
+                  src={currentQuestion.image}
+                  alt="תמונת שאלה"
+                  style={{ width: '100%', maxHeight: '45vh', objectFit: 'contain', borderRadius: 8, display: 'block' }}
+                />
+                <button
+                  onClick={() => setImageRevealed(true)}
+                  style={{
+                    marginTop: 12, border: '1px solid #C8956C', borderRadius: 8,
+                    background: 'none', color: '#C8956C', fontSize: '0.85rem',
+                    padding: '8px 12px', cursor: 'pointer', fontWeight: 500,
+                    width: '100%',
+                  }}
+                >
+                  לתשובות ←
+                </button>
+              </>
+            ) : (
+              /* Step 2: normal layout with answers */
+              <>
+                <div className="quiz__header">
+                  <div className="quiz__progress-pill">{progressLabel}</div>
+                </div>
+                <div className="quiz__timer-row">
+                  <span className="quiz__timer-label" style={{ color: timerColor }}>{timeLeft}s</span>
+                  <div className="quiz__timer-track">
+                    <div
+                      className="quiz__timer-bar"
+                      style={{ width: `${timerPercent}%`, backgroundColor: timerColor, transition: 'width 1s linear, background-color 0.5s' }}
+                    />
+                  </div>
+                </div>
+                <div className="quiz__question-card">
+                  <span className="quiz__question-badge">{questionNumberLabel}</span>
+                  <p className="quiz__question-text">{currentQuestion.text}</p>
+                </div>
+                {currentQuestion.hasImage && answerState === null && (
+                  <button
+                    onClick={() => setShowImagePopup(true)}
+                    style={{
+                      alignSelf: 'flex-start', background: 'none', border: '1px solid #C8956C',
+                      borderRadius: 6, padding: '4px 10px', fontSize: '0.8rem',
+                      color: '#C8956C', cursor: 'pointer', marginBottom: 4,
+                    }}
+                  >
+                    🔍 חזרה לתמונה
+                  </button>
+                )}
+                <div className="quiz__options">
+                  {shuffledOptions.map(([key, text]) => (
+                    <button
+                      key={key}
+                      className={getOptionClass(key)}
+                      onClick={() => handleSelectOption(key)}
+                      disabled={answerState !== null}
+                    >
+                      <span className="option__letter">{key}</span>
+                      <span className="option__text">{text}</span>
+                      {getOptionIcon(key)}
+                    </button>
+                  ))}
+                </div>
+                {answerState !== null && (
+                  <div className={explanationBoxClass}>
+                    <span className="explanation-box__badge">{explanationBadge}</span>
+                    <p className="explanation-box__text">{currentQuestion.explanation}</p>
+                    <button className="btn btn--green btn--full" onClick={handleNext}>
+                      {isLastQuestion ? 'סיים בוחן ←' : `← המשך לשאלה ${currentIndex + 2}`}
+                    </button>
+                  </div>
+                )}
+              </>
             )}
           </div>
         )}
