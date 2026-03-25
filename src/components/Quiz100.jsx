@@ -139,6 +139,7 @@ export default function Quiz100() {
   // Timer
   const [timeLeft, setTimeLeft] = useState(QUESTION_TIME);
   const timerRef = useRef(null);
+  const scormInteractionRef = useRef(0);
 
   const currentQuestion = activeQuestions[currentIndex] || null;
   const isLastQuestion = currentIndex === activeQuestions.length - 1;
@@ -213,12 +214,43 @@ export default function Quiz100() {
   const handleNext = () => {
     setImageRevealed(false);
     setShowImagePopup(false);
+
+    // Record SCORM interaction for the question just answered
+    if (typeof window.pipwerks !== "undefined" && pipwerks.SCORM.connection.isActive) {
+      const answerData = currentAttemptAnswers[currentQuestion.id];
+      if (answerData) {
+        const n = scormInteractionRef.current;
+        const is2004 = pipwerks.SCORM.version === "2004";
+        pipwerks.SCORM.set(`cmi.interactions.${n}.id`, String(currentQuestion.id));
+        pipwerks.SCORM.set(`cmi.interactions.${n}.type`, "choice");
+        pipwerks.SCORM.set(
+          `cmi.interactions.${n}.${is2004 ? "learner_response" : "student_response"}`,
+          answerData.timedOut ? "" : answerData.selected
+        );
+        pipwerks.SCORM.set(`cmi.interactions.${n}.correct_responses.0.pattern`, currentQuestion.correct);
+        pipwerks.SCORM.set(
+          `cmi.interactions.${n}.result`,
+          answerData.correct ? "correct" : (is2004 ? "incorrect" : "wrong")
+        );
+        scormInteractionRef.current += 1;
+      }
+    }
+
     if (isLastQuestion) {
       const merged = { ...allAnswers, ...currentAttemptAnswers };
       setAllAnswers(merged);
       const score = calcScore(merged);
-      if (typeof window.finishTestSCROM === "function") {
-        window.finishTestSCROM(score, 50);
+      if (typeof window.pipwerks !== "undefined" && pipwerks.SCORM.connection.isActive) {
+        const is2004 = pipwerks.SCORM.version === "2004";
+        pipwerks.SCORM.score.set(score);
+        if (is2004) {
+          pipwerks.SCORM.set("cmi.completion_status", "completed");
+          pipwerks.SCORM.set("cmi.success_status", score >= 50 ? "passed" : "failed");
+        } else {
+          pipwerks.SCORM.set("cmi.core.lesson_status", score >= 50 ? "passed" : "failed");
+        }
+        pipwerks.SCORM.save();
+        pipwerks.SCORM.quit();
       } else {
         console.log("SCORM not available");
       }
@@ -257,6 +289,10 @@ export default function Quiz100() {
   };
 
   const startQuiz = () => {
+    scormInteractionRef.current = 0;
+    if (typeof window.pipwerks !== "undefined") {
+      pipwerks.SCORM.init();
+    }
     setActiveQuestions(shuffle(QUESTIONS));
     setCurrentIndex(0);
     setCurrentAttemptAnswers({});
